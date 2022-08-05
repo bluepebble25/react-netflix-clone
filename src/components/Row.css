@@ -53,6 +53,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 20px 0;
+  scroll-behavior: smooth;
 }
 .row__posters::-webkit-scrollbar {
   display: none;

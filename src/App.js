@@ -16,7 +16,6 @@ function App() {
               <Row
                 key={genre.id}
                 title={genre.title}
-                id={genre.id}
                 fetchURL={genre.fetchUrl}
                 isLargeRow
               />
@@ -26,7 +25,6 @@ function App() {
               <Row
                 key={genre.id}
                 title={genre.title}
-                id={genre.id}
                 fetchURL={genre.fetchUrl}
             />
             );
