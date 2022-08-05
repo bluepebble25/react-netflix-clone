@@ -30,12 +30,18 @@
   top: 0;
   right: 0;
 }
+.slider__arrow {
+  font-size: 2rem;
+  font-weight: 700;
+}
 
 .slider:hover > .slider__arrow-area {
-  background-color: rgba(20, 20, 20, 0.5);
   visibility: visible;
 }
-.slider__arrow-area:hover > .slider__arrow {
+.slider__arrow-area:hover {
+  background-color: rgba(20, 20, 20, 0.5);
+}
+.slider__arrow:hover {
   transition: 400ms all ease-in-out;
   transform: scale(1.5);
 }
