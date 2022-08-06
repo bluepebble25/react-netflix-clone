@@ -1,4 +1,4 @@
-import requests from "./requests";
+import requests from "../api/requests";
 
 const genres = [
   {

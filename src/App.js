@@ -1,8 +1,9 @@
 import './App.css';
-import genres from './api/genres';
+import genres from './data/genres';
 import Nav from './components/Nav';
 import Banner from './components/Banner';
 import Row from './components/Row';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           }
         })
       }
+      <Footer />
     </div>
   );
 }
