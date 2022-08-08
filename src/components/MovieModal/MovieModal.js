@@ -1,5 +1,6 @@
 import React from 'react'
 import './MovieModal.css';
+import { ReactComponent as XICON } from '../../assets/x-icon.svg';
 
 function MovieModal({
   backdrop_path,
@@ -18,7 +19,7 @@ function MovieModal({
           className="modal__close"
           onClick={() => setIsModalOpen(false)}
         >
-          X
+          <XICON width="24px" height="24px" fill="white" />
         </span>
         
         <img
