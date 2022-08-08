@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from '../api/axios';
 import './Row.css';
+import MovieModal from './MovieModal/MovieModal';
 
 function Row({ isLargeRow, title, fetchURL }) {
   const [movies, setMovies] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState({});
+
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -14,6 +18,11 @@ function Row({ isLargeRow, title, fetchURL }) {
     const request = await axios.get(fetchURL);
     setMovies(request.data.results);
     console.log('request', request);
+  };
+
+  const handleModalOpen = (movie) => {
+    setIsModalOpen(true);
+    setSelectedMovie(movie);
   };
 
   const slideToLeft = () => {
@@ -44,6 +53,7 @@ function Row({ isLargeRow, title, fetchURL }) {
               src={`https://image.tmdb.org/t/p/original/${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
               loading="lazy"
               alt={movie.title}
+              onClick={() => handleModalOpen(movie)}
             />
           ))}
         </div>
@@ -56,6 +66,15 @@ function Row({ isLargeRow, title, fetchURL }) {
           </span>
         </div>
       </div>
+      {
+        isModalOpen && (
+          <MovieModal
+            {...selectedMovie}
+            setIsModalOpen={setIsModalOpen}
+          />
+        )
+
+      }
     </section>
   )
 }
