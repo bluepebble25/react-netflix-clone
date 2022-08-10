@@ -44,7 +44,7 @@ function Searchpage() {
               <div
                 className="movie__column"
                 key={movie.id}
-                onClick={() => navigate(`/${movie.id}`)}
+                onClick={() => navigate(`/${movie.id}?media_type=${movie.media_type}`)}
               >
                   <img
                     src={movieImageUrl}
