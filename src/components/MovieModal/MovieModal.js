@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './MovieModal.css';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { ReactComponent as XICON } from '../../assets/x-icon.svg';
 
 function MovieModal({
@@ -12,9 +13,15 @@ function MovieModal({
   vote_average,
   setIsModalOpen,
 }) {
+
+  const modalRef = useRef();
+  useOnClickOutside(modalRef, () => {
+    setIsModalOpen(false);
+  });
+
   return (
     <div className="modal-wrapper">
-      <div className="modal">
+      <div className="modal" ref={modalRef}>
         <span
           className="modal__close"
           onClick={() => setIsModalOpen(false)}
