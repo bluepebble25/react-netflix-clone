@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import axios from '../api/axios';
 import requests from '../api/requests';
 import './Banner.css';
+import { SkeletonBanner } from './Skeleton';
 
 function Banner() {
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState(null);
   const [isPlayClicked, setIsPlayClicked] = useState(false);
 
   useEffect(() => {
@@ -27,60 +28,63 @@ function Banner() {
       }
     });
     setMovie(movieDetail);
-    console.log(movieDetail);
+    // console.log(movieDetail);
   };
 
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
 
-  if(movie.length !== 0) {
-    if(!isPlayClicked) {
-      return (
-        <header
-          className="banner"
-          style={{
-            backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
-            backgroundPosition: 'top center',
-            backgroundSize: 'cover',
-          }}
-        >
-          <div className="banner__contents">
-            <h1 className="banner__title">
-              {movie.title || movie.name || movie.original_title}
-            </h1>
-            <div className="banner__buttons">
-              {movie.videos.results.length !== 0
-              ? <button
-                  className="banner__button banner__button--play"
-                  onClick={() => setIsPlayClicked(true)}
+  return (
+    <>
+      {!movie &&
+        <SkeletonBanner />
+      }
+
+      {movie &&
+        (!isPlayClicked ?
+          <header
+            className="banner"
+            style={{
+              backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+              backgroundPosition: 'top center',
+              backgroundSize: 'cover',
+            }}
+          >
+            <div className="banner__contents">
+              <h1 className="banner__title">
+                {movie.title || movie.name || movie.original_title}
+              </h1>
+              <div className="banner__buttons">
+                {movie.videos.results.length !== 0
+                ? <button
+                    className="banner__button banner__button--play"
+                    onClick={() => setIsPlayClicked(true)}
+                  >
+                    Play
+                  </button>
+                : <button
+                    className="banner__button banner__button--disabled"
+                    disabled
+                  >
+                    Not Playable
+                  </button>
+                }
+                <button
+                  className="banner__button banner__button--info"
                 >
-                  Play
+                  More information
                 </button>
-              : <button
-                  className="banner__button banner__button--disabled"
-                  disabled
-                >
-                  Not Playable
-                </button>
-              }
-              <button
-                className="banner__button banner__button--info"
-              >
-                More information
-              </button>
+              </div>
+              <h2 className="banner__description">
+                {truncate(movie.overview, 100)}
+              </h2>
             </div>
-            <h2 className="banner__description">
-              {truncate(movie.overview, 100)}
-            </h2>
-          </div>
-          <div className="banner--fadeBottom"></div>
-        </header>
-      )
-    } else {
-      return (
-        <Container>
-          <HomeContainer>
+            <div className="banner--fadeBottom"></div>
+          </header>
+          :
+          <Container>
+           <HomeContainer>
             <Iframe
               width="640"
               height="360"
@@ -92,9 +96,10 @@ function Banner() {
             </Iframe>
           </HomeContainer>
         </Container>
-      )
-    }
-  }
+        )
+      }
+    </>
+  )
 }
 
 const Container = styled.div`

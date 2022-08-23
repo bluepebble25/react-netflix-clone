@@ -5,7 +5,7 @@ import MovieModal from './MovieModal/MovieModal';
 import { SkeletonRow } from './Skeleton';
 
 function Row({ isLargeRow, title, fetchURL }) {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({});
 
@@ -38,9 +38,10 @@ function Row({ isLargeRow, title, fetchURL }) {
     <section className="row">
       <h2 className="row__title">{ title }</h2>
       <div className="slider">
-        
         {
-          movies.length !== 0 ?
+          !movies && (isLargeRow ? <SkeletonRow large /> : <SkeletonRow />)
+        }
+        { movies &&
           <>
             <div className="slider__arrow-area slider__arrow-area--left">
               <span
@@ -71,10 +72,7 @@ function Row({ isLargeRow, title, fetchURL }) {
             </span>
           </div>
           </>
-        : (isLargeRow ? <SkeletonRow large /> : <SkeletonRow />)
         }
-        
-        
       </div>
       {
         isModalOpen && (
@@ -83,7 +81,6 @@ function Row({ isLargeRow, title, fetchURL }) {
             setIsModalOpen={setIsModalOpen}
           />
         )
-
       }
     </section>
   )

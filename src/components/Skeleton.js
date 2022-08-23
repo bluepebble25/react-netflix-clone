@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 
-const SkeletonRow = ({ large }) => {
+export const SkeletonRow = ({ large }) => {
   return (
     <Posters>
       {renderColumns(20, large)}
@@ -9,8 +9,10 @@ const SkeletonRow = ({ large }) => {
   );
 };
 
-const SkeletonBanner = () => {
-
+export const SkeletonBanner = () => {
+  return (
+    <Banner></Banner>
+  );
 };
 
 const renderColumns = (num, large) => {
@@ -50,4 +52,10 @@ const Poster = styled.div`
   border-radius: 4px;
 `;
 
-export { SkeletonRow, SkeletonBanner };
+const Banner = styled.div`
+  height: 448px;
+
+  @media (min-width: 1500px) {
+    height: 600px;
+  }
+`;
